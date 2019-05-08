@@ -1,5 +1,5 @@
 # Recommendation-system-for-online-purchases
-In this project, Elasticsearch was used to build a recommendation system for an online retail company.
+In this project, Elasticsearch was used to build a recommendation system for an online retail company. All code was saved in the _Recommendation-system-for-online-purchases.ipynb_ within the folder. 
 
 The inspiration is drawn from this article (building something similar for ingredients in recipes): [A recommender system for ingredients in recipes](https://qbox.io/blog/building-simple-recommender-systems-for-elasticsearch-1) 
 
@@ -35,5 +35,14 @@ All data was fling into kibana.
 Accuracy | Item-Item Recommender | First User-Item Recommender | Second User-Item Recommender
  | ------------ | ------------- | ------------ | -------------
 Min | 0% | 0% | 0%
-Max | 75% | 56.6% | 
-Average | 8.2% | |  
+Max | 75% |  | 55.6%
+Average | 8.2% | | 2.9%
+
+## Possible Modificaiton and Future Analysis:
+The result is in contradict with the hypothesis. The User-item recommenders scored lower accuracy than item-item recommender. One possible reason is that the purhcase frequency may not be a predictive/ valuable information for recommender, thus by using that information to narrow down the bucket, we decreased the accuracy. However, further analysis is required.
+
+Some possible modifications for the experiment setting and analysis are:
+1. For User-Item Recommender, we can also convert quantity into quantiles and use that as one of the filter to further narrow down the customer buskets. With a bigger data size, this is expect to improve the accuracy rate.
+2. Look into the right matches of each models and find out which pairs of items is most linked together under which model. 
+3. Further analyze and extract other columns so it can be valuable information in querying. E.g. InvoiceDate can be extract into forms such as morning, afternoon, and night purchase and can be a customer purhcase behaviors.  
+4. Change the metric used to measure the performance of models. In this case, no prediction can be made if only one item is being purchased for the particular entry, which can be a huge information loss. 
