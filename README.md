@@ -19,12 +19,15 @@ To better prepare the dataset for elasticsearch and queries, serveral cleanning 
 3. Accodring to the documentation, ff InvoiceNo starts with letter 'C', it indicates a cancellation. To avoid unnecessary complications, all rows with InvoiceNo started with a "C" is remove.
 
 The dataframe was then prep differently for User-Item Recommender and Item-Item Recommender.
-> For Item-Item Recommender, the data was aaggregated by InvoiceNo. The data was then ordered by InvoiceDate before splitting into first 80% tranining and later 20% testing. We later refer to this data as _item_data_.
-> For User-Item Recommender, the data was aaggregated by CustomerID. A new column was created based on the frequency (by quartile) of visit of the customer. The data was then randomly split into 80% tranining and 20% testing. We later refer to this data as _cust_data_.
+For Item-Item Recommender, the data was aaggregated by InvoiceNo. The data was then ordered by InvoiceDate before splitting into first 80% tranining and later 20% testing. We later refer to this data as _item_data_.
+For User-Item Recommender, the data was aaggregated by CustomerID. A new column was created based on the frequency (by quartile) of visit of the customer. The data was then randomly split into 80% tranining and 20% testing. We later refer to this data as _cust_data_.
 
 All data was fling into kibana.
 
 ## The Model:
 3 models were constructed:
 1. Item-Item Recommender: The query aggregated the training dataset of _item_data_, where significant terms were found based on the input terms from the testing set of _item_data_. For example, given an InvoiceNo from testing set has three items being purhcased: A, B, and C. The recommender made prediction for what items B and C by finding the two most correlated items with A based on the training set. Given the prediction is B and C, the accuracy is calculated by dividing the overlap item(s) by the total predicting items. In this case, the prediction accuracy is 1/2 = 50%. After repeating this same procedures for item B and C, the accuracy of an InvoiceNo is calculated by avergaing the prediction accuracy of all items. The final accuracy of the Item-Item Recommender is calculated by taking the mean accuracy of all InvoiceNo.
-2. First User-Item Recommender: The query aggregated the training dataset of _cust_data_, where significant terms were found based on the input terms from the testing set of _cust_data_.
+2. First User-Item Recommender: The query aggregated the training dataset of _cust_data_, where significant terms were found based on the input terms from the testing set of _cust_data_. The same query and calculation were conducted, except the prediction was made for each CustomerID instead of InvoiceNo.
+3. Second User-Item Recommender: This recommender was based on the same exact data and procedure as the first User-Item Recommender. However, the query was more selective where the query not only filtered by the item, but also by the visit frequency of the customer. In the assumption is that, by doing so, we can narrow down to the same customer group with similar purhase behavior, thus increase the predicting accuracy. 
+
+## The Result and Analysis:
