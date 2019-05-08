@@ -27,19 +27,18 @@ All data was fling into kibana.
 ## The Model
 3 models were constructed:
 1. Item-Item Recommender: The query aggregated the training dataset of _item_data_, where significant terms were found based on the input terms from the testing set of _item_data_. For example, given an InvoiceNo from testing set has three items being purhcased: A, B, and C. The recommender made prediction for what items B and C by finding the two most correlated items with A based on the training set. Given the prediction is B and C, the accuracy is calculated by dividing the overlap item(s) by the total predicting items. In this case, the prediction accuracy is 1/2 = 50%. After repeating this same procedures for item B and C, the accuracy of an InvoiceNo is calculated by avergaing the prediction accuracy of all items. The final accuracy of the Item-Item Recommender is calculated by taking the mean accuracy of all InvoiceNo.
-2. First User-Item Recommender: The query aggregated the training dataset of _cust_data_, where significant terms were found based on the input terms from the testing set of _cust_data_. The same query and calculation were conducted, except the prediction was made for each CustomerID instead of InvoiceNo.
-3. Second User-Item Recommender: This recommender was based on the same exact data and procedure as the first User-Item Recommender. However, the query was more selective where the query not only filtered by the item, but also by the visit frequency of the customer. In the assumption is that, by doing so, we can narrow down to the same customer group with similar purhase behavior, thus increase the predicting accuracy. 
+2. User-Item Recommender:The query aggregated the training dataset of _cust_data_, where significant terms were found based on the input terms from the testing set of _cust_data_. The same query and calculation were conducted, except the prediction was made for each CustomerID instead of InvoiceNo. In addition, the query was more selective where the query not only filtered by the item, but also by the visit frequency and location of the customer. In the assumption is that, by doing so, we can narrow down to the same customer group with similar purhase behavior, thus increase the predicting accuracy. 
 
 ## The Result and Analysis
 #### Result:
-Accuracy | Item-Item Recommender | First User-Item Recommender | Second User-Item Recommender
- | ------------ | ------------- | ------------ | -------------
-Min | 0% | 0% | 0%
-Max | 75% |  | 55.6%
-Average | 8.2% | | 2.9%
+Accuracy | Item-Item Recommender | User-Item Recommender
+ | ------------ | ------------- | ------------
+Min | 0% | 0%
+Max | 75% | 55.6%
+Average | 8.2% | 2.9%
 
 ## Possible Modificaiton and Future Analysis:
-The result is in contradict with the hypothesis. The User-item recommenders scored lower accuracy than item-item recommender. One possible reason is that the purhcase frequency may not be a predictive/ valuable information for recommender, thus by using that information to narrow down the bucket, we decreased the accuracy. However, further analysis is required.
+The result is in contradict with the hypothesis. The User-item recommenders scored lower accuracy than item-item recommender. One possible reason is that the purhcase frequency or location may not be a predictive/ valuable information for recommender (or by doing so we narrowed the bucket too much and there is no enough info to do so), thus by using that information to narrow down the bucket, we decreased the accuracy. However, further analysis is required.
 
 Some possible modifications for the experiment setting and analysis are:
 1. For User-Item Recommender, we can also convert quantity into quantiles and use that as one of the filter to further narrow down the customer buskets. With a bigger data size, this is expect to improve the accuracy rate.
