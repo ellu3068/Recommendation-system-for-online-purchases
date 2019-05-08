@@ -1,4 +1,4 @@
-# Recommendation-system-for-online-purchases:
+# Recommendation-system-for-online-purchases
 In this project, Elasticsearch was used to build a recommendation system for an online retail company.
 
 The inspiration is drawn from this article (building something similar for ingredients in recipes): [A recommender system for ingredients in recipes](https://qbox.io/blog/building-simple-recommender-systems-for-elasticsearch-1) 
@@ -7,7 +7,7 @@ There are two goals for the project:
 1. Utilized Elasticsearch to build recommendation system.
 2. Compare User-Item Recommender to Item-Item Recommender. The hypothesis is that the User-Item Recommender would outperform the Item-Item Recommender.
 
-## The Dataset:
+## The Dataset
 The dataset consists of items purchased from an online retailer over the course of a year or two.
 The dataset contains x observations and eights columns: InvoiceNo, StockCode, Description, Quantity, InvoiceDate, UnitPrice, CustomerID, and Country. 
 
@@ -24,10 +24,15 @@ For User-Item Recommender, the data was aaggregated by CustomerID. A new column 
 
 All data was fling into kibana.
 
-## The Model:
+## The Model
 3 models were constructed:
 1. Item-Item Recommender: The query aggregated the training dataset of _item_data_, where significant terms were found based on the input terms from the testing set of _item_data_. For example, given an InvoiceNo from testing set has three items being purhcased: A, B, and C. The recommender made prediction for what items B and C by finding the two most correlated items with A based on the training set. Given the prediction is B and C, the accuracy is calculated by dividing the overlap item(s) by the total predicting items. In this case, the prediction accuracy is 1/2 = 50%. After repeating this same procedures for item B and C, the accuracy of an InvoiceNo is calculated by avergaing the prediction accuracy of all items. The final accuracy of the Item-Item Recommender is calculated by taking the mean accuracy of all InvoiceNo.
 2. First User-Item Recommender: The query aggregated the training dataset of _cust_data_, where significant terms were found based on the input terms from the testing set of _cust_data_. The same query and calculation were conducted, except the prediction was made for each CustomerID instead of InvoiceNo.
 3. Second User-Item Recommender: This recommender was based on the same exact data and procedure as the first User-Item Recommender. However, the query was more selective where the query not only filtered by the item, but also by the visit frequency of the customer. In the assumption is that, by doing so, we can narrow down to the same customer group with similar purhase behavior, thus increase the predicting accuracy. 
 
-## The Result and Analysis:
+## The Result and Analysis
+#### Prediction 
+First Header | Second Header
+------------ | -------------
+Content from cell 1 | Content from cell 2
+Content in the first column | Content in the second column
