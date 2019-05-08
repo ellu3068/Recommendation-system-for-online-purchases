@@ -31,7 +31,7 @@ All data was fling into kibana.
 3. Second User-Item Recommender: This recommender was based on the same exact data and procedure as the first User-Item Recommender. However, the query was more selective where the query not only filtered by the item, but also by the visit frequency of the customer. In the assumption is that, by doing so, we can narrow down to the same customer group with similar purhase behavior, thus increase the predicting accuracy. 
 
 ## The Result and Analysis
-#### Prediction 
+#### Result:
 Accuracy | Item-Item Recommender | First User-Item Recommender | Second User-Item Recommender
  | ------------ | ------------- | ------------ | -------------
 Min | 0% | 0% | 0%
